@@ -17,7 +17,8 @@ namespace WebApi.Controllers
             _dbSet = _context.Set<T>();
         }
 
-        public async Task<ActionResult<IEnumerable<T>>> GetAll() => Ok(await _dbSet.ToListAsync());
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<T>>> GetAll() => await _dbSet.ToListAsync();
 
         [HttpGet("{id:int}")]
         public async Task<ActionResult<T>> GetById([FromRoute] int id)
@@ -27,7 +28,7 @@ namespace WebApi.Controllers
             if (entity is null)
                 return NotFound();
 
-            return Ok(entity);
+            return entity;
         }
 
         [HttpPost]
